@@ -1,0 +1,55 @@
+<div class="row">
+    <div class="col-md-6 col-md-offset-1">
+        <div class="card card-body">
+            <h1 class="card-title">Look Up Your Local Forecast</h1>
+            <p class="card-text">What's the weather like in your city?</p>
+            <form>
+            <div class="form-group">
+                <%= form_tag index_path do %>
+                    <label for="city">City</label>
+                    <%= text_field_tag :city, nil, placeholder: "City", class: "form-control" %>
+                    <label for="state">State</label>                                              
+                    <%= select_tag :state, options_for_select(@states), prompt: "Please select", class: "form-control" %>
+                    <br/>
+                    <%= submit_tag "Check Weather", class: "btn btn-primary" %>
+                <% end %>
+            </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="col-md-6 col-md-offset-3">
+    <div class="card card-body">
+
+      <% if @location != nil && @location != "" && (@error == "" || @error == nil) %>
+      <h1>Forecast for <%= @location %></h1>
+
+      <div class="row">
+      <%= select_tag :stored_locations, options_from_collection_for_select(@stored_locations, 'id', 'dname'), prompt: "Please select", class: "form-control" %>
+      <label for="stored_locations">Saved Locations</label><br/>           
+      </div>
+      <div class="row">
+        <div class="col-md-7">
+            <p><em>What's the weather like?</em></p>
+            <p>
+                  Temperature is: <%= @temp_f %>° / <%= @temp_c %>° 
+                </p>
+                <p>
+                  Feels like: <%= @real_feel_f %>°
+            </p>
+        </div>
+        <div class="col-md-5">
+                <p>
+                  <%= @weather_words %> <%= image_tag @weather_icon %>
+                </p>
+                <p>
+                  <%= link_to "Full Forecast", @forecast_link, target: "_blank" %>
+                </p>
+        </div>
+       </div>
+      <% else %> 
+          <p>Error: Please enter a valid request. <%= @error %> </p> 
+          <% end %>
+    </div>
+  </div>
+</div>
