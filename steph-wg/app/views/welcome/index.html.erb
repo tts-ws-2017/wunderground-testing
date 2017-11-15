@@ -1,0 +1,53 @@
+<div class="row">
+    <div class="col-md-6 col-md-offset-1">
+        <div class="card-body">
+	    <h1>Look Up Your Local Forecast</h1>
+	    <p>What's the weather like in your city?</p>
+	    <form>
+        <div class="form-group">
+                <%= form_tag index_path do %>
+		    <%= text_field_tag :city, nil, placeholder: "City", class: "form-control" %><br />
+		    <%= select_tag :state, options_for_select(@states), prompt: "Please select", class: "form-control" %><br />
+            <%# <label for="stored_locations">Previous Locations</label>
+            <%= select_tag :saved_locations, options_from_collection_for_select(@stored_locations, 'id', 'dname'), prompt: "Please select", class: "form-control"</br> %>
+		    <%= submit_tag "Check Weather", class: "btn btn-primary form-control" %>
+		<% end %>
+	    </div>
+        <form>
+	</div>
+    </div>
+  <div class="col-md-6 col-md-offset-3">
+    <div class="card-body">
+
+<!-- Bring in the instance variables from our controller to display on our index page. -->
+<!-- Check to make sure @location is not empty or nil and that the API did not return an error -->
+		<% if @location != nil && @location != "" && (@error == "" || @error == nil) %>
+	    <h1>Forecast for <%= @location %></h1>
+<div id="resizable" class="ui-widget-content">
+	    <div class="row">
+	      <div class="col-md-6">
+		  		<p class="ui-widget-header"><em>What's the weather like?</em></p>
+	        <p>
+		    		Temperature is: <%= @temp_f %>° / <%= @temp_c %>° 
+		  		</p>
+		  		<p>
+		    		Feels like: <%= @real_feel_f %>°
+	    	  </p>
+	      </div>
+	      <div class="col-md-6">
+                  <p>
+		    		<%= @weather_words %> <%= image_tag @weather_icon %>
+		  		</p>
+		  		<p>
+		    		<%= link_to "Full Forecast", @forecast_link, target: "_blank" %>
+		  		</p>
+	     </div>
+        <% else %> 
+	    	<p>Error: Please enter a valid request. <%= @error %> </p> 
+			<% end %>
+	  </div>
+	</div>
+</div>
+</div>
+</div>
+

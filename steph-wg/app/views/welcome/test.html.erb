@@ -1,0 +1,34 @@
+  <div class = "col-md-6">
+    <div class = "well">
+      <h1 style="color: red">Welcome To <%= @location %>!</h1>
+         <div class="card card-outline-primary mb-3 text-center">
+        <div class="card-body">
+          <p><em>What's the weather like?</em></p>
+          <p>
+              Temperature is: <%= @temp_f %>° / <%= @temp_c %>° C 
+          </p>
+          <p>
+              Feels like: <%= @real_feel %>° F
+          </p>
+        </div>  
+        </div>
+        <div>
+        <div class="card card-outline-secondary mb-3 text-center">
+        <div class="card-body">  
+            <p>
+            <%= @weather_words%> <%= image_tag @weather_icon%> 
+            </p>
+            <p>
+            <%=link_to "Full Forecast", @forecast_link, target: "_blank" %>
+            </p>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>    
+
+  
+
+
+
+
